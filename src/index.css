@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+  .chat-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #0077b6, #78dcca);
+    border-radius: 4px;
+  }
+  
+  .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0069a1, #6bc4b3);
+  }
+
+  
+@config "../tailwind.config.js";
+@import "tailwindcss";
+
+
+
+.font-montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+/* @keyframes scaleIn {
+   from {
+      opacity: 0;
+      transform: translate(-50%, 10px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+   }
+  }
+ .animate-scaleIn {
+   animation: scaleIn 0.2s ease-out;
+ } */
+
+
+ /* Add to your global.css or App.css */
+.mobile-sidebar-open {
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .mobile-sidebar-open {
+    overflow: auto;
+  }
+}
