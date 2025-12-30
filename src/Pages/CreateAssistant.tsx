@@ -56,7 +56,7 @@ const CreateAssistant: React.FC = () => {
   transcribe_model: "gemini-2.0-flash", 
  
   voice_provider: "11labs",
-  voice: "kdVjFjOXaqExaDvXZECX",
+  voice: "21m00Tcm4TlvDq8ikWAM",
   voice_model: "eleven_flash_v2_5", 
   
   forwardingPhoneNumber: "",

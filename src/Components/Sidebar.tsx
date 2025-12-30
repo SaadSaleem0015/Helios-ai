@@ -191,6 +191,8 @@ export function Sidebar({
       subItems: [
         { title: "View Leads", path: "/view-leads", icon: <LuFileBadge /> },
         { title: "GHL Leads", path: "/ghl-leads", icon: <LuFileBadge /> },
+        { title: "Zoho Leads", path: "/zoho-leads", icon: <LuFileBadge /> },
+
       ],
     },
     analytics: {

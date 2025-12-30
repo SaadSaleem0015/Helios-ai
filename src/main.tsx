@@ -82,6 +82,7 @@ import CancelSubscription from "./Pages/CancelSubscription";
 import AdminCallReports from "./Pages/AdminPages/AdminCallReports";
 import AdminGeneralSettings from "./Pages/AdminPages/AdminGeneralSettings";
 import { AdminPhoneNumbers } from "./Pages/AdminPages/AdminPhoneNumbers";
+import { ZohoLeads } from "./Pages/ZohoLeads";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -273,9 +274,14 @@ const router = createBrowserRouter([
         path: "leads",
         element: <ErrorBoundary><Leads /></ErrorBoundary>,
       },
+      
       {
         path: "ghl-leads",
         element: <ErrorBoundary><GHLLeads /></ErrorBoundary>,
+      },
+      {
+        path: "zoho-leads",
+        element: <ErrorBoundary><ZohoLeads /></ErrorBoundary>,
       },
       // {
       //   path: "dnc-leads",
