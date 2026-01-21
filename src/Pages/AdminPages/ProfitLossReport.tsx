@@ -116,7 +116,7 @@ const ProfitLossReport = () => {
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Company Performance</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Users Performance</h2>
               <p className="text-gray-600 text-sm mt-1">Filter and search through company data</p>
             </div>
             

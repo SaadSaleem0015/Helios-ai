@@ -127,6 +127,7 @@ const MakePayment = () => {
   const [paymentAmount, setPaymentAmount] = useState("");
   const [autoReplenishment, setAutoReplenishment] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [togglingReplenishment, setTogglingReplenishment] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const fetchPaymentMethods = async () => {
@@ -152,8 +153,24 @@ const MakePayment = () => {
     }
   };
 
+  const fetchReplenishmentStatus = async () => {
+    try {
+      const response = await backendRequest<{ success: boolean; replenishment: boolean; detail: string }>(
+        "GET",
+        "/replenishment-status"
+      );
+      if (response.success) {
+        setAutoReplenishment(response.replenishment || false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch replenishment status:", error);
+      // Don't show error notification for this, just default to false
+    }
+  };
+
   useEffect(() => {
     fetchPaymentMethods();
+    fetchReplenishmentStatus();
   }, []);
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,7 +202,6 @@ const MakePayment = () => {
     const newPayment = {
       amount,
       paymentMethodId: selectedPaymentMethod.id,
-      autoReplenishment,
     };
 
     try {
@@ -215,8 +231,40 @@ const MakePayment = () => {
     }
   };
 
-  const toggleAutoReplenishment = () => {
-    setAutoReplenishment(!autoReplenishment);
+  const toggleAutoReplenishment = async () => {
+    const newValue = !autoReplenishment;
+    
+    try {
+      setTogglingReplenishment(true);
+      const response = await backendRequest(
+        "POST",
+        "/toggle-replenishment",
+        { enabled: newValue }
+      );
+      
+      if (response.success) {
+        setAutoReplenishment(newValue);
+        notifyResponse({
+          success: true,
+          detail: newValue 
+            ? "Auto replenishment has been enabled" 
+            : "Auto replenishment has been disabled",
+        });
+      } else {
+        notifyResponse({
+          success: false,
+          detail: response.detail || "Failed to update auto replenishment",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to toggle auto replenishment:", error);
+      notifyResponse({
+        success: false,
+        detail: "Failed to update auto replenishment. Please try again.",
+      });
+    } finally {
+      setTogglingReplenishment(false);
+    }
   };
 
   return (
@@ -336,7 +384,8 @@ const MakePayment = () => {
                       id="autoReplenishment"
                       checked={autoReplenishment}
                       onChange={toggleAutoReplenishment}
-                      className="h-5 w-5 border-gray-300 rounded text-primary focus:ring-primary focus:ring-2 focus:ring-offset-0"
+                      disabled={togglingReplenishment}
+                      className="h-5 w-5 border-gray-300 rounded text-primary focus:ring-primary focus:ring-2 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                   <div className="flex-1">

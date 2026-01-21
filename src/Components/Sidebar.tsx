@@ -192,6 +192,7 @@ export function Sidebar({
         { title: "View Leads", path: "/view-leads", icon: <LuFileBadge /> },
         { title: "GHL Leads", path: "/ghl-leads", icon: <LuFileBadge /> },
         { title: "Zoho Leads", path: "/zoho-leads", icon: <LuFileBadge /> },
+        { title: "HubSpot Leads", path: "/hubspot-leads", icon: <LuFileBadge /> },
 
       ],
     },
@@ -309,7 +310,7 @@ export function Sidebar({
         {!sidebarCollapsed ? (
           <Link to="/" className="flex items-center gap-2">
             <img
-              src="/logo.png"
+              src="/logo.jpeg"
               className="h-8 w-auto"
               alt="Helios AI"
             />
@@ -318,7 +319,7 @@ export function Sidebar({
         ) : (
           <Link to="/" className="flex items-center justify-center w-full">
             <img
-              src="/logo.png"
+              src="/logo.jpeg"
               className="h-8 w-auto"
               alt="Helios AI"
             />

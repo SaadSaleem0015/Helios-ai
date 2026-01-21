@@ -116,7 +116,7 @@ const CreateAssistant: React.FC = () => {
         );
         console.log("randasijdp:", response);
         if (response.success) {
-          // navigate("/assistant");
+          navigate("/assistant");
           notifyResponse(response);
           setLoading(false);
         } else {

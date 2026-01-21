@@ -115,7 +115,7 @@ console.log("signupForm",signupForm)
     <div className="flex flex-col justify-center py-16 px-8 sm:py-6 space-y-4">
       <div className="flex items-start">
         <img
-          src="/logo.png"
+          src="/logo.jpeg"
           alt="Phono AI Logo"
           className="h-14 mb-4"
         />

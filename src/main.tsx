@@ -52,7 +52,7 @@ import { GHLLeads } from "./Pages/GHLLeads";
 // import PaymentMethod from "./Pages/PaymentMethod";
 
 // import { ViewDocuments } from "./Components/ViewDocuments";
-// import { AdminDnc } from "./Pages/AdminPages/AdminDnc";
+import { AdminDnc } from "./Pages/AdminPages/AdminDnc";
 // import { DNCLeads } from "./Pages/DNCLeads";
 // import AccountPLreportPage from "./Components/AdminAccountsDetail/AccountPLreportPage";
 import AdminDefaultSettings from "./Pages/AdminPages/AdminDefaultSettings";
@@ -83,6 +83,7 @@ import AdminCallReports from "./Pages/AdminPages/AdminCallReports";
 import AdminGeneralSettings from "./Pages/AdminPages/AdminGeneralSettings";
 import { AdminPhoneNumbers } from "./Pages/AdminPages/AdminPhoneNumbers";
 import { ZohoLeads } from "./Pages/ZohoLeads";
+import { HubSpotLeads } from "./Pages/HubSpotLeads";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -192,10 +193,10 @@ const router = createBrowserRouter([
       //   path: "onboarding_email",
       //   element: <ErrorBoundary><OnboardCall /></ErrorBoundary>,
       // },
-      // {
-      //   path: "dnc",
-      //   element: <ErrorBoundary><AdminDnc /></ErrorBoundary>,
-      // },
+      {
+        path: "dnc",
+        element: <ErrorBoundary><AdminDnc /></ErrorBoundary>,
+      },
       // {
       //   path: "dnc-list",
       //   element: <ErrorBoundary><AdminDncLists /></ErrorBoundary>,
@@ -282,6 +283,10 @@ const router = createBrowserRouter([
       {
         path: "zoho-leads",
         element: <ErrorBoundary><ZohoLeads /></ErrorBoundary>,
+      },
+      {
+        path: "hubspot-leads",
+        element: <ErrorBoundary><HubSpotLeads /></ErrorBoundary>,
       },
       // {
       //   path: "dnc-leads",

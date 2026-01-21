@@ -4,7 +4,7 @@ import { TbDashboard, TbSettings, TbChevronDown, TbChevronRight, TbX } from 'rea
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { FaPhoneSquare } from "react-icons/fa";
 import { RiMoneyDollarBoxLine } from 'react-icons/ri';
-import { MdAccountBox } from 'react-icons/md';
+import { MdAccountBox, MdDoNotDisturbOnTotalSilence } from 'react-icons/md';
 import { HiOutlineDocumentCheck } from 'react-icons/hi2';
 
 // import { MdOutlineMarkEmailRead } from "react-icons/md";
@@ -198,7 +198,7 @@ export function AdminSidebar({ mobileOpen = false, setMobileOpen = () => {} }: S
           <div className="p-3 flex items-center border-b border-gray-100">
   <Link to="/" className="flex items-center gap-2">
     <img
-      src="/logo.png"
+      src="/logo.jpeg"
       className="h-12 w-auto"
       alt="Helios AI"
     />
@@ -223,9 +223,9 @@ export function AdminSidebar({ mobileOpen = false, setMobileOpen = () => {} }: S
             Phone Numbers
           </SidebarItem>
         </SidebarSection>
-        <SidebarItem to="/admin/profit-loss-report" icon={<RiMoneyDollarBoxLine />} setMobileOpen={setMobileOpen}>
+        {/* <SidebarItem to="/admin/profit-loss-report" icon={<RiMoneyDollarBoxLine />} setMobileOpen={setMobileOpen}>
           Profit & Loss
-        </SidebarItem>
+        </SidebarItem> */}
         <SidebarItem to="/admin/call_reports" icon={<RiMoneyDollarBoxLine />} setMobileOpen={setMobileOpen}>
           Call Reports
         </SidebarItem>
@@ -238,6 +238,9 @@ export function AdminSidebar({ mobileOpen = false, setMobileOpen = () => {} }: S
           <SidebarItem to="/admin/termconditions" icon={<HiOutlineDocumentCheck />} setMobileOpen={setMobileOpen}>
           Terms & Conditions
         </SidebarItem>
+        <SidebarItem to="/admin/dnc" icon={<MdDoNotDisturbOnTotalSilence />}>
+           DNC Settings
+         </SidebarItem>
 
 {/* 
         <SidebarItem to="/admin/logs" icon={<FaFileAlt />}>
@@ -248,9 +251,9 @@ export function AdminSidebar({ mobileOpen = false, setMobileOpen = () => {} }: S
           DNC Settings
         </SidebarItem>
 
-        <SidebarItem to="/admin/dnc-list" icon={<MdDoNotDisturbOnTotalSilence />}>
-          DNC Lists
-        </SidebarItem>
+        // <SidebarItem to="/admin/dnc-list" icon={<MdDoNotDisturbOnTotalSilence />}>
+        //   DNC Lists
+        // </SidebarItem>
 
         <SidebarItem to="/admin/profit-loss-report" icon={<RiMoneyDollarBoxLine />}>
           Profit & Loss

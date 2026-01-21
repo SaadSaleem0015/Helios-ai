@@ -50,7 +50,7 @@ export function ForgetPassword() {
             <div className="w-full max-w-sm">
                 {/* Logo */}
                 <div className="text-center mb-6">
-                    <img src="/logo.png" alt="VanillaVoice Logo" className="h-16 mx-auto mb-4" />
+                    <img src="/logo.jpeg" alt="VanillaVoice Logo" className="h-16 mx-auto mb-4" />
                 </div>
 
                 {/* Forgot Password Card */}

@@ -48,7 +48,7 @@ export function Login() {
                 {/* Header */}
                 <div className="text-center mb-6">
                     <div className="mb-4">
-                        <img src="/logo.png" alt="VanillaVoice Logo" className="h-16 mx-auto" />
+                        <img src="/logo.jpeg" alt="VanillaVoice Logo" className="h-16 mx-auto" />
                     </div>
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         Welcome Back

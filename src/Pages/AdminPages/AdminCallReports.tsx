@@ -138,7 +138,7 @@ const AdminCallReports: React.FC = () => {
 
   const fetchCompanies = async () => {
     try {
-      const companyList = await backendRequest<any[], []>("GET", "/company");
+      const companyList = await backendRequest<any[], []>("GET", "/users");
       setCompanies(companyList);
     } catch (error) {
       console.error("Failed to fetch companies:", error);
@@ -287,7 +287,7 @@ const AdminCallReports: React.FC = () => {
             <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
               {selectedCompany && (
                 <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                  Company: {companies.find(c => c.id === selectedCompany)?.company_name}
+                  Company: {companies.find(c => c.id === selectedCompany)?.name}
                   <button
                     onClick={() => setSelectedCompany("")}
                     className="ml-2 text-primary hover:text-primary/70"
@@ -368,7 +368,7 @@ const AdminCallReports: React.FC = () => {
                           <div className="flex items-center text-sm">
                             <FiPhone className="w-4 h-4 text-gray-400 mr-2" />
                             <span className="text-gray-700">
-                              <span className="font-medium">Call ID:</span> {log.call_id.slice(0, 8)}...
+                              <span className="font-medium">Call ID:</span> {log.call_id ? log.call_id.slice(0, 8) : "--"}...
                             </span>
                           </div>
                           {log.end_reason && (
@@ -414,6 +414,9 @@ const AdminCallReports: React.FC = () => {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Plateform User
+                        </th>
                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Caller Details
                         </th>
@@ -432,6 +435,24 @@ const AdminCallReports: React.FC = () => {
                       {filteredPhoneNumbers.length > 0 ? (
                         filteredPhoneNumbers.map((log) => (
                           <tr key={log.id} className="hover:bg-gray-50 transition-colors">
+                             <td className="px-6 py-4">
+                              <div className="flex items-center space-x-3">
+                                <div className="flex-shrink-0">
+                                  <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                    <FiUser className="w-5 h-5 text-gray-600" />
+                                  </div>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-sm font-medium text-gray-900">
+                                    {log.plateform_user_name || "Unknown User"}
+                                  </div>
+                                  <div className="text-sm text-gray-500">
+                                    {log.plateform_user_email}
+                                  </div>
+                                 
+                                </div>
+                              </div>
+                            </td>
                             <td className="px-6 py-4">
                               <div className="flex items-center space-x-3">
                                 <div className="flex-shrink-0">
@@ -447,7 +468,7 @@ const AdminCallReports: React.FC = () => {
                                     {log.customer_number}
                                   </div>
                                   <div className="text-xs text-gray-400 mt-1">
-                                    Call ID: {log.call_id.slice(0, 8)}...
+                                   Call ID: {log.call_id ? log.call_id.slice(0, 8) : "--"}...
                                   </div>
                                 </div>
                               </div>
@@ -477,7 +498,7 @@ const AdminCallReports: React.FC = () => {
                             </td>
                             <td className="px-6 py-4">
                               <div className="text-sm font-medium text-gray-900">
-                                ${log.cost.toFixed(2)}
+                                ${log.cost ? log.cost.toFixed(2) : "0"}
                               </div>
                             </td>
                           </tr>

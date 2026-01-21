@@ -378,12 +378,12 @@ const getUserData = async () => {
                     {/* <th scope="col" className="px-4 py-3 text-left text-sm font-bold text-gray-900  tracking-wider">
                       Remaining Minutes
                     </th> */}
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-bold text-gray-900  tracking-wider">
+                    {/* <th scope="col" className="px-4 py-3 text-left text-sm font-bold text-gray-900  tracking-wider">
                       Grant Minutes
                     </th>
                     <th scope="col" className="px-4 py-3 text-left text-sm font-bold text-gray-900  tracking-wider">
                       Progress
-                    </th>
+                    </th> */}
 
                     <th scope="col" className="px-4 py-3"></th>
                     <th scope="col" className="px-4 py-3"></th>
@@ -406,7 +406,7 @@ const getUserData = async () => {
                       {/* <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                         {account.min_left.toFixed(2)}
                       </td> */}
-                      <td
+                      {/* <td
                         className="px-4 py-4 whitespace-nowrap text-sm text-blue-600 hover:underline cursor-pointer"
                         onClick={() => {
                           setGrantMinutesModel(true);
@@ -414,13 +414,13 @@ const getUserData = async () => {
                         }}
                       >
                         Grant
-                      </td>
-                      <td
+                      </td> */}
+                      {/* <td
                         onClick={() => handleProgress(account.id)}
                         className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 hover:text-blue-600 cursor-pointer text-center"
                       >
                         <FaEye className="inline-block" />
-                      </td>
+                      </td> */}
 
                       <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button

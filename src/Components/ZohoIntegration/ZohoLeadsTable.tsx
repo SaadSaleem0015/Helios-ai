@@ -49,9 +49,9 @@ export function ZohoLeadsTable({
               <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                 Phone
               </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+              {/* <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                 Status
-              </th>
+              </th> */}
               <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                 Converted Date
               </th>
@@ -75,24 +75,24 @@ export function ZohoLeadsTable({
                     <div className="flex items-center gap-3">
                       <div className="w-11 h-11 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
                         <span className="text-sm font-bold text-white">
-                          {lead.Last_Name?.[0]?.toUpperCase() || "?"}
+                          {lead.last_name?.[0]?.toUpperCase() || "?"}
                         </span>
                       </div>
                       <div>
                         <div className="text-sm font-semibold text-gray-900">
-                          {lead.Last_Name || "N/A"}
+                          {lead.last_name || "N/A"}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900 flex items-center gap-2">
-                      {lead.Email ? (
+                      {lead.email ? (
                         <>
                           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
-                          <span>{lead.Email}</span>
+                          <span>{lead.email}</span>
                         </>
                       ) : (
                         <span className="text-gray-400">N/A</span>
@@ -101,19 +101,19 @@ export function ZohoLeadsTable({
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900 flex items-center gap-2">
-                      {lead.Phone ? (
+                      {lead.mobile ? (
                         <>
                           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                           </svg>
-                          <span>{lead.Phone}</span>
+                          <span>{lead.mobile}</span>
                         </>
                       ) : (
                         <span className="text-gray-400">N/A</span>
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  {/* <td className="px-6 py-4 whitespace-nowrap">
                     {lead.Record_Status__s ? (
                       <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">
                         {lead.Record_Status__s}
@@ -121,10 +121,10 @@ export function ZohoLeadsTable({
                     ) : (
                       <span className="text-gray-400 text-sm font-medium">N/A</span>
                     )}
-                  </td>
+                  </td> */}
                   <td className="px-6 py-4">
                     <div className="text-sm text-gray-900">
-                      {lead.Converted_Date_Time ? FormateTime(lead.Converted_Date_Time) : "N/A"}
+                      {lead.other_data.Converted_Date_Time ? FormateTime(lead.other_data.Converted_Date_Time) : "N/A"}
                     </div>
                   </td>
                 </tr>
