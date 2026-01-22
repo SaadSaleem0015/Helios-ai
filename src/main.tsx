@@ -85,10 +85,10 @@ import { AdminPhoneNumbers } from "./Pages/AdminPages/AdminPhoneNumbers";
 import { ZohoLeads } from "./Pages/ZohoLeads";
 import { HubSpotLeads } from "./Pages/HubSpotLeads";
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/login" />,
-  },
+  // {
+  //   path: "/",
+  //   element: <Navigate to="/login" />,
+  // },
   {
     path: 'can-not-access',
     element: <ErrorBoundary><CannotAccessPage /></ErrorBoundary>
