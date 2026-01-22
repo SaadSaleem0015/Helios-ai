@@ -72,7 +72,7 @@ export function Signup() {
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         Create Your Account
                     </h1>
-                    <p className="text-gray-600 text-sm">Get started with VanillaVoice AI today</p>
+                    <p className="text-gray-600 text-sm">Get started with Helios AI today</p>
                 </div>
 
                 {/* Signup Card */}

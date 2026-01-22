@@ -104,7 +104,7 @@ export function ActivateAccount() {
                 {/* Footer with dynamic year */}
                 <div className="text-center mt-4">
                     <p className="text-xs text-gray-500">
-                        © {currentYear} VanillaVoice AI. All rights reserved.
+                        © {currentYear} Helios AI. All rights reserved.
                     </p>
                 </div>
             </div>
