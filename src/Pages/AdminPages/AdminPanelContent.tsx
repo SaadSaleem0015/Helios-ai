@@ -53,7 +53,7 @@ export function AdminPanelContent({
     try {
       const response = await backendRequest("GET", "/profile");
       setUserName(response.name || "Admin");
-      setUserEmail(response.email || "admin@vanillavoice.com");
+      setUserEmail(response.email || "admin@heliosai.com");
     } catch (error) {
       console.error("Failed to fetch user profile:", error);
     }

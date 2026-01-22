@@ -13,6 +13,9 @@ export function Signup() {
     const [showPassword, setShowPassword] = useState(false);  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    
+    // Dynamic year
+    const currentYear = new Date().getFullYear();
 
     async function login(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -67,12 +70,12 @@ export function Signup() {
                 {/* Header */}
                 <div className="text-center mb-6">
                     <div className="mb-4">
-                        <img src="/logo.jpeg" alt="VanillaVoice Logo" className="h-16 mx-auto" />
+                        <img src="/logo.jpeg" alt="Helios AI Logo" className="h-16 mx-auto" />
                     </div>
                     <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         Create Your Account
                     </h1>
-                    <p className="text-gray-600 text-sm">Get started with VanillaVoice AI today</p>
+                    <p className="text-gray-600 text-sm">Get started with The Helios AI today</p>
                 </div>
 
                 {/* Signup Card */}
@@ -232,7 +235,7 @@ export function Signup() {
                 {/* Footer */}
                 <div className="text-center mt-4">
                     <p className="text-xs text-gray-500">
-                        © 2025 HeliosAI. All rights reserved.
+                        © {currentYear} The Helios AI. All rights reserved.
                     </p>
                 </div>
             </div>

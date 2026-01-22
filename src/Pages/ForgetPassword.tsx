@@ -50,7 +50,7 @@ export function ForgetPassword() {
             <div className="w-full max-w-sm">
                 {/* Logo */}
                 <div className="text-center mb-6">
-                    <img src="/logo.jpeg" alt="VanillaVoice Logo" className="h-16 mx-auto mb-4" />
+                    <img src="/logo.jpeg" alt="Helios AI Logo" className="h-16 mx-auto mb-4" />
                 </div>
 
                 {/* Forgot Password Card */}
@@ -181,7 +181,7 @@ export function ForgetPassword() {
                 {/* Footer with dynamic year */}
                 <div className="text-center mt-4">
                     <p className="text-xs text-gray-500">
-                        © {currentYear} HeliosAI. All rights reserved.
+                        © {currentYear} The Helios AI. All rights reserved.
                     </p>
                 </div>
             </div>
