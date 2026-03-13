@@ -181,7 +181,7 @@ export default function AdminDefaultSettings() {
                   </div>
                 </div>
 
-                <div className="group">
+                {/* <div className="group">
                   <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
                     Phone Number Price ($)
                   </label>
@@ -196,7 +196,7 @@ export default function AdminDefaultSettings() {
                     />
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 font-medium">$</div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="group">
                   <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
@@ -277,7 +277,7 @@ export default function AdminDefaultSettings() {
                   />
                 </div>
 
-                <div className="group">
+                {/* <div className="group">
                   <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
                     Call Frequency
                   </label>
@@ -289,9 +289,9 @@ export default function AdminDefaultSettings() {
                     placeholder="10"
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 focus:outline-none transition-all duration-200 text-gray-700 placeholder-gray-400 group-hover:border-gray-300"
                   />
-                </div>
+                </div> */}
 
-                <div className="group">
+                {/* <div className="group">
                   <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
                     Call Period (minutes)
                   </label>
@@ -306,7 +306,7 @@ export default function AdminDefaultSettings() {
                     />
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs">min</div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 

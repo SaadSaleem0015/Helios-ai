@@ -61,6 +61,9 @@ import AdminDefaultSettings from "./Pages/AdminPages/AdminDefaultSettings";
 // import { AdminDncLists } from "./Pages/AdminPages/AdminDncLists";
 // import AccountDNCLeads from "./Components/AdminAccountsDetail/AccountDncLeads";
 import BusinessSchedule from "./Pages/BusinessSchedule";
+import CalendarIntegration from "./Pages/CalendarIntegration";
+import { Support } from "./Pages/Support";
+import AdminSupportTickets from "./Pages/AdminPages/AdminSupportTickets";
 // import AdminPurchaseNumbers from "./Pages/AdminPages/AdminPurchaseNumber";
 // import OnboardCall from "./Pages/AdminPages/OnboardCall";
 // import NotFoundPage from "./Components/NotFound";
@@ -249,6 +252,10 @@ const router = createBrowserRouter([
         path: "profit-loss-report",
         element: <ErrorBoundary><ProfitLossReport /></ErrorBoundary>,
       },
+      {
+        path: "support-tickets",
+        element: <ErrorBoundary><AdminSupportTickets /></ErrorBoundary>,
+      },
     ],
   },
   {
@@ -276,10 +283,10 @@ const router = createBrowserRouter([
         element: <ErrorBoundary><Leads /></ErrorBoundary>,
       },
       
-      {
-        path: "ghl-leads",
-        element: <ErrorBoundary><GHLLeads /></ErrorBoundary>,
-      },
+      // {
+      //   path: "ghl-leads",
+      //   element: <ErrorBoundary><GHLLeads /></ErrorBoundary>,
+      // },
       {
         path: "zoho-leads",
         element: <ErrorBoundary><ZohoLeads /></ErrorBoundary>,
@@ -327,6 +334,14 @@ const router = createBrowserRouter([
       {
         path: "business-schedule",
         element: <ErrorBoundary><BusinessSchedule /></ErrorBoundary>,
+      },
+      {
+        path: "calendar-integration",
+        element: <ErrorBoundary><CalendarIntegration /></ErrorBoundary>,
+      },
+      {
+        path: "support",
+        element: <ErrorBoundary><Support /></ErrorBoundary>,
       },
       {
         path: "cancel-subscription",

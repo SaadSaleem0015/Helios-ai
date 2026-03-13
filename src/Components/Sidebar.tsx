@@ -6,6 +6,7 @@ import {
   TbBuilding,
   TbReportMoney,
   TbCalendar,
+  TbCalendarEvent,
   TbChevronDown,
   TbChevronRight,
   TbMenu2,
@@ -182,6 +183,7 @@ export function Sidebar({
         { title: "Phone Numbers", path: "/getnumbers", icon: <MdCall /> },
         { title: "Knowledge Base", path: "/documents", icon: <FaFileAlt /> },
         { title: "Schedule", path: "/business-schedule", icon: <TbCalendar /> },
+        { title: "Calendar Integration", path: "/calendar-integration", icon: <TbCalendarEvent /> },
       ],
     },
     leads: {
@@ -190,7 +192,7 @@ export function Sidebar({
       icon: <LuFileBadge />,
       subItems: [
         { title: "View Leads", path: "/view-leads", icon: <LuFileBadge /> },
-        { title: "GHL Leads", path: "/ghl-leads", icon: <LuFileBadge /> },
+        // { title: "GHL Leads", path: "/ghl-leads", icon: <LuFileBadge /> },
         { title: "Zoho Leads", path: "/zoho-leads", icon: <LuFileBadge /> },
         { title: "HubSpot Leads", path: "/hubspot-leads", icon: <LuFileBadge /> },
 

@@ -155,7 +155,7 @@ export function AdminPanelContent({
                   Profile Settings
                 </Link>
 
-                <Link
+                {/* <Link
                   to="/admin/site-management"
                   className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   onClick={() => setDroppedDown(false)}
@@ -171,7 +171,7 @@ export function AdminPanelContent({
                 >
                   <TbSettings className="w-4 h-4 text-gray-500" />
                   System Settings
-                </Link>
+                </Link> */}
               </div>
 
               {/* Logout */}

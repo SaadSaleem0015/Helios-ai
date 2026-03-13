@@ -9,6 +9,7 @@ import { FiCalendar, FiDollarSign, FiTrendingUp, FiTrendingDown, FiFilter, FiRef
 interface Payment {
   amount_paid: number;
   created_at: string;
+  description: string;
 }
 
 interface BillingReportData {
@@ -131,7 +132,7 @@ const BillingReport: React.FC = () => {
       const billingEntries: BillingReportData[] = [
         ...filteredPayments.map((payment) => ({
           date: new Date(payment.created_at).toISOString(),
-          description: "Payment Received",
+          description:payment.description || "Payment Received",
           credit: payment.amount_paid,
           debit: 0,
           balance: 0,

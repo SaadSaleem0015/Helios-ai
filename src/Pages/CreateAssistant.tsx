@@ -51,9 +51,9 @@ const CreateAssistant: React.FC = () => {
   temperature: 0.5,
   maxTokens: 250,
   languages:["English"],
-  transcribe_provider: "google",
-  transcribe_language: "Multilingual", 
-  transcribe_model: "gemini-2.0-flash", 
+  transcribe_provider: "deepgram",
+  transcribe_language: "multi", 
+  transcribe_model: "nova-2", 
  
   voice_provider: "11labs",
   voice: "21m00Tcm4TlvDq8ikWAM",
@@ -84,9 +84,15 @@ const CreateAssistant: React.FC = () => {
             "GET",
             `/get-assistant/${assistantId}`
           );
-          if (response) {
-            setAssistantData(response);
-            setSelectedCategory(response.category)
+          if (response && 'name' in response) {
+            // Ensure provider is "openai" and model is set
+            const updatedResponse: AssistantData = {
+              ...response,
+              provider: "openai",
+              model: response.model || "gpt-4o-mini"
+            };
+            setAssistantData(updatedResponse);
+            setSelectedCategory((response as { category?: string }).category)
             setIsDataLoaded(true); 
           }
         } catch (error) {

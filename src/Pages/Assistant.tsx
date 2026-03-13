@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { backendRequest } from "../Helpers/backendRequest";
 import { notifyResponse } from "../Helpers/notyf";
 import { TbTrash } from "react-icons/tb";
@@ -303,6 +303,13 @@ const Assistant = () => {
           </h1>
           <p className="text-xs sm:text-sm text-gray-600">
             Create and manage your intelligent AI companions
+          </p>
+          <hr className="my-2 border-gray-200" />
+          <p className="text-xs sm:text-sm text-gray-600 mt-1">
+            If you are looking to create an appointment booking assistant, you need to add your calendar first.{" "}
+            <Link to="/calendar-integration" className="text-primary font-medium hover:underline">
+              Click here to add
+            </Link>
           </p>
         </div>
 

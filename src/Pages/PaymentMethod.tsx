@@ -5,14 +5,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { backendRequest } from "../Helpers/backendRequest";
 import { useNavigate } from "react-router-dom";
-import { FaCreditCard, FaUser, FaMapMarkerAlt, FaPhone, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaCreditCard, FaUser, FaPhone, FaEnvelope, FaLock } from "react-icons/fa";
 
 // test key
-const stripePromise = loadStripe("pk_test_51S1RuCIynxmoy2Ro0CtGFaOti2dT3p24RDKV3DGugY1f8gMD1MxzWqkmWQJNkqBiS9FgTiG5GFxM6uM3mxTUekMu00UnqXgA9k");
+// const stripePromise = loadStripe("pk_test_51L9ED5Hx4scm5E4HAgCLw1qlqZcaE1Az39EE2XI7f4YpIPmNjW9wcRspEmjBYrZ5tWETrwuQuzRR5l1uHKDfSpPb0049HMH9GG");
 
 // live key
 // const stripePromise = loadStripe("pk_live_51QH8drGHzljfWhIHqETtDPTJYXS1uuc9BQRpIGzRHwO50oLl2niqyfmInXFX9fV2Xl5YaSBcVNiIl8bontV48H6900sCaeSsDr");
-
+const stripePromise = loadStripe("pk_live_51L9ED5Hx4scm5E4HhdfGfHgnL8I4dArCDicjRN8Z0ZiY6zQs2ClZrxT3sa0DeE2TZMCnfcZY08NndxWg4E0WZXfv00sSLefnDa");
 interface FormValues {
   name_on_card: string;
   address: string;

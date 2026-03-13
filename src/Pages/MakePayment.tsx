@@ -393,7 +393,7 @@ const MakePayment = () => {
                       Enable Auto Replenishment
                     </label>
                     <p className="text-sm text-gray-500 mt-1">
-                      Automatically add $500 when your balance falls below $200
+                      Automatically add $100 when your balance falls below $20
                     </p>
                     
                     {autoReplenishment && (

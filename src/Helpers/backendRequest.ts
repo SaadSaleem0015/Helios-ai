@@ -29,14 +29,14 @@ export async function backendRequest<SuccessResponse = { success: true }, ErrorR
     try {
          const response = await fetch(url, { method, body: passableBody, headers: passableHeaders });
         
-        // if (!response.ok) {
-        //     const errorResponse = await response.json();
-        //     if (errorResponse.detail === "Could not validate credentials") {
-        //         localStorage.removeItem('token');
-        //         window.location.href = "/login";
-        //     }
-        //     return errorResponse as ErrorResponse;
-        // }
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            if (errorResponse.detail === "Could not validate credentials") {
+                localStorage.removeItem('token');
+                window.location.href = "/login";
+            }
+            return errorResponse as ErrorResponse;
+        }
 
         return await response.json() as SuccessResponse;
     } catch (error) {

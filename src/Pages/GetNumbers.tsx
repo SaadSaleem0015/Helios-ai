@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { FaPhone, FaSearch, FaCheckCircle, FaShoppingCart } from 'react-icons/fa';
 import AvailableNumbers from '../Components/GetNumberTabs/AvailableNumbers';
 import PurchasedNumbers from '../Components/GetNumberTabs/PurchasedNumbers';
+import { TwilioCredentialsCard } from '../Components/TwilioCredentialsCard';
 
 const GetNumbers: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'my-numbers' | 'buy-numbers'>('buy-numbers');
+  const [twilioConnected, setTwilioConnected] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -38,6 +40,18 @@ const GetNumbers: React.FC = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 ">
+        {/* Twilio Credentials Card */}
+        <TwilioCredentialsCard onStatusChange={setTwilioConnected} />
+
+        {/* Warning if not connected */}
+        {!twilioConnected && (
+          <div className="mb-6 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-lg px-4 py-3 flex items-center gap-2">
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>Please connect your Twilio account above to search and purchase phone numbers.</span>
+          </div>
+        )}
         
         {/* Simplified Tab Navigation */}
         <div className="mb-8">
@@ -97,8 +111,8 @@ const GetNumbers: React.FC = () => {
               </div>
               
               {/* Numbers List */}
-              <div className="p-1">
-                <AvailableNumbers />
+              <div className={`p-1 ${!twilioConnected ? 'pointer-events-none opacity-50' : ''}`}>
+                <AvailableNumbers twilioConnected={twilioConnected} />
               </div>
             </div>
           )}

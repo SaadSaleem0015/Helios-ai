@@ -192,6 +192,9 @@ export function ViewLeads() {
                   File Name
                 </th>
                 <th className="py-3 px-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  Source
+                </th>
+                <th className="py-3 px-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                   Records
                 </th>
                 <th className="py-3 px-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
@@ -240,7 +243,19 @@ export function ViewLeads() {
                       </div>
                     </div>
                   </td>
-
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <TbFile className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <p className={`text-sm font-medium text-gray-900 truncate max-w-[200px] ${file.type == "zoho" ? "bg-primary text-white px-2 py-1 rounded-md" : file.type == "hubspot" ? "bg-green-100 text-green-700 px-2 py-1 rounded-md" : "bg-yellow-100 text-gray-500 px-2 py-1 rounded-md"}`}>
+                          {file.type ? file.type : "Custom"}
+                        </p>
+                      
+                      </div>
+                    </div>
+                  </td>
                   {/* Records Count */}
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">

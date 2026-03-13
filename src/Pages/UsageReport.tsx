@@ -50,7 +50,7 @@ interface CallLog extends Record<string, unknown> {
 }
 
 const dispositionOptions = [
-  { value: "", label: "All Dispositions", icon: FiCheckCircle },
+  { value: "", label: "All End Call Reasons", icon: FiCheckCircle },
   { value: "customer-ended-call", label: "Customer Ended", icon: FiXCircle },
   { value: "silence-timed-out", label: "Silence Timeout", icon: FaClock },
   { value: "customer-did-not-answer", label: "No Answer", icon: FiPhoneOff },
@@ -335,7 +335,7 @@ const UsageReport: React.FC = () => {
 
             {/* Disposition Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Disposition</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">End Call Reason</label>
               <div className="relative">
                 <button
                   onClick={() => setIsDispositionOpen(!isDispositionOpen)}
@@ -343,7 +343,7 @@ const UsageReport: React.FC = () => {
                 >
                   <div className="flex items-center gap-2">
                     <FaFilter className="w-4 h-4 text-gray-400" />
-                    <span>{selectedOption?.label || "All Dispositions"}</span>
+                    <span>{selectedOption?.label || "All End Call Reasons"}</span>
                   </div>
                   <FaChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isDispositionOpen ? "rotate-180" : ""}`} />
                 </button>
@@ -420,7 +420,7 @@ const UsageReport: React.FC = () => {
                     Duration & Time
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Disposition
+                    End Call Reason
                   </th>
                   <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -633,18 +633,6 @@ const UsageReport: React.FC = () => {
                       <div>
                         <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">End Reason</label>
                         <p className="text-gray-900 mt-1">{selectedLogDetails.ended_reason || "--"}</p>
-                      </div>
-                      <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Criteria Satisfied</label>
-                        <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium mt-1 ${selectedLogDetails.successEvalution === "true" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}`}>
-                          {selectedLogDetails.successEvalution === "true" ? "Yes" : "No"}
-                        </div>
-                      </div>
-                      <div>
-                        <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Transferred</label>
-                        <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium mt-1 ${selectedLogDetails.ended_reason === "assistant-forwarded-call" ? "bg-blue-100 text-blue-800" : "bg-gray-100 text-gray-800"}`}>
-                          {selectedLogDetails.ended_reason === "assistant-forwarded-call" ? "Yes" : "No"}
-                        </div>
                       </div>
                     </div>
                   </div>

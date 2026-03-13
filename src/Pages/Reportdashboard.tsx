@@ -26,8 +26,6 @@ interface CallLog extends Record<string, unknown> {
 const ReportDashboard: React.FC = () => {
   const [totalCalls, setTotalCalls] = useState<number>(0);
   const [totalMinutes, setTotalMinutes] = useState<number>(0);
-  const [totalSuccessfulTransfers, setTotalSuccessfulTransfers] =
-    useState<number>(0);
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -200,15 +198,10 @@ const ReportDashboard: React.FC = () => {
         );
 
   
-        const successfulTransfersCount = callLogs.filter(
-          (log: CallLog) => log.criteria_satisfied == true
-        ).length;
-  
         setTotalCalls(totalCallsCount);
         // console.log("call log is ",totalMinutesCount)
         setTotalMinutes(parseFloat(totalMinutesCount.toFixed(2)));
         // console.log("call  duration minutes",parseFloat(totalMinutesCount.toFixed(2)))
-        setTotalSuccessfulTransfers(successfulTransfersCount);
       } catch (error) {
         // console.error("Error fetching call logs:", error);
         setIsDataFound(false);
@@ -222,8 +215,6 @@ const ReportDashboard: React.FC = () => {
   // console.log("call logs data is this ",callLogs)
   
 
-  const successPercentage =
-    totalCalls > 0 ? (totalSuccessfulTransfers / totalCalls) * 100 : 0;
 
 
 
@@ -266,17 +257,9 @@ const ReportDashboard: React.FC = () => {
           </p>
         </div>
         <div className="bg-white p-6 rounded-lg text-gray-800">
-          <h3 className="text-sm sm:text-lg font-medium">
-            Total Successful Transfers
-          </h3>
+          <h3 className="text-sm sm:text-lg font-medium">Average Call Duration</h3>
           <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-600">
-            {isDataFound ? `${totalSuccessfulTransfers}/${totalCalls}` : "0/0"}
-          </p>
-        </div>
-        <div className="bg-white p-6 rounded-lg text-gray-800">
-          <h3 className="text-sm sm:text-lg font-medium">Success Percentage</h3>
-          <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-600">
-            {isDataFound ? successPercentage.toFixed(2) : "0.00"}%
+            {isDataFound && totalCalls > 0 ? (totalMinutes / totalCalls).toFixed(2) : "0.00"} min
           </p>
         </div>
       </div>

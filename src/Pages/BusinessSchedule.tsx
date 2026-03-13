@@ -242,8 +242,6 @@ const BusinessSchedule = () => {
     }
   };
 
-
-
   return (
     <div className="container mx-auto p-2 sm:p-4 lg:p-6 bg-white">
       <RequirementsCard setShowRequirements={setShowRequirements} showRequirements = {showRequirements}/>
@@ -273,14 +271,20 @@ const BusinessSchedule = () => {
             <label className="mb-1 text-sm sm:text-base text-gray-600 font-medium">
               Assistant
             </label>
-            <input
-              disabled
-              className="p-3.5 w-full border border-gray-300 rounded-lg text-gray-700"
-              value={
-                assistants.find((assistant) => assistant.assistant_toggle)
-                  ?.name || "No Assistant Found"
-              }
-            />
+            <select
+              className="p-3.5 w-full border border-gray-300 rounded-lg text-gray-700 outline-none cursor-pointer"
+              value={selectedAssistant}
+              onChange={(e) => setSelectedAssistant(e.target.value)}
+            >
+              <option value="" disabled>Select an assistant...</option>
+              {assistants
+                .filter((assistant) => assistant.attached_Number)
+                .map((assistant) => (
+                  <option key={assistant.id} value={assistant.vapi_assistant_id || ""}>
+                    {assistant.name} {assistant.attached_Number ? `(${assistant.attached_Number})` : ""}
+                  </option>
+                ))}
+            </select>
           </div>
         </div>
       </div>

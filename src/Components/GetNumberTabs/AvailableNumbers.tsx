@@ -6,7 +6,8 @@ import { notifyResponse } from "../../Helpers/notyf";
 import { Input } from "../Input";
 import { Loading } from "../Loading";
 import { PageNumbers } from "../PageNumbers";
-import TwilioModal, { TwilioModal2 } from "../TwilioModal";
+import TwilioModal from "../TwilioModal";
+import { SearchNumbersModal } from "./SearchNumbersModal";
 import ConfirmationModal from "../ConfirmationModal";
 import { IoSearchOutline, IoPhonePortraitOutline } from "react-icons/io5";
 
@@ -24,10 +25,14 @@ interface PhoneNumber {
   capabilities: NumberCapabilities;
 }
 
-const AvailableNumbers: React.FC = () => {
+interface AvailableNumbersProps {
+  twilioConnected?: boolean;
+}
+
+const AvailableNumbers: React.FC<AvailableNumbersProps> = ({ twilioConnected = false }) => {
   const [showModal, setShowModal] = useState("");
   const [availableNumbers, setAvailableNumbers] = useState<PhoneNumber[]>([]);
-  const [search, setSearch] = useState("");
+  const [search] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedNumber, setSelectedNumber] = useState<string | null>(null);
@@ -86,9 +91,10 @@ const AvailableNumbers: React.FC = () => {
         "/available_phone_numbers",
         { area_codes: areaCodes, country: values.country }
       );
-
-      if (Array.isArray(response)) setAvailableNumbers(response);
+      notifyResponse(response);
+      if (Array.isArray(response.available_numbers)) setAvailableNumbers(response.available_numbers);
     } catch (error) {
+
       console.error("Error fetching available numbers:", error);
     } finally {
       setLoading(false);
@@ -140,19 +146,6 @@ const AvailableNumbers: React.FC = () => {
     }
   }
 
-  const searchAllStateNumbers = async () => {
-    setLoading(true);
-    try {
-      const response = await backendRequest<PhoneNumber[], []>("GET", "/all-state-numbers");
-      if (Array.isArray(response)) {
-        setAvailableNumbers(response);
-      }
-    } catch (error) {
-      console.error("Error fetching all state numbers:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   if (loading) return (
     <div className="flex justify-center items-center h-64">
@@ -276,9 +269,9 @@ const AvailableNumbers: React.FC = () => {
                       <td className="px-4 py-3">
                         <button
                           onClick={() => handleNumberBuyModal(num.phone_number)}
-                          disabled={selectedNumbers.includes(num.phone_number)}
+                          disabled={selectedNumbers.includes(num.phone_number) || !twilioConnected}
                           className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200 ${
-                            selectedNumbers.includes(num.phone_number)
+                            selectedNumbers.includes(num.phone_number) || !twilioConnected
                               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                               : "bg-primary hover:bg-primary-dark text-white"
                           }`}
@@ -318,7 +311,12 @@ const AvailableNumbers: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
                   onClick={() => handleOpenModal('Numbers')}
-                  className="px-4 py-2.5 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-colors duration-200"
+                  disabled={!twilioConnected}
+                  className={`px-4 py-2.5 rounded-lg font-medium transition-colors duration-200 ${
+                    twilioConnected
+                      ? 'bg-primary hover:bg-primary-dark text-white'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
                 >
                   Search by Area Code
                 </button>
@@ -341,19 +339,11 @@ const AvailableNumbers: React.FC = () => {
         </div>
       {/* Modals */}
       {showModal === "Numbers" && (
-        <TwilioModal2
-          showModal={"Numbers"}
-          title="Search Phone Numbers"
-          fields={[
-            {
-              label: "Enter Area Code(s)",
-              type: "text",
-              placeholder: "e.g., 415, 469, 650...",
-            },
-          ]}
+        <SearchNumbersModal
+          show={true}
+          onClose={handleCloseModal}
           onSubmit={handleSubmit}
-          handleCloseModal={handleCloseModal}
-          buttonText={"Search Numbers"}
+          buttonText="Search Numbers"
         />
       )}
 

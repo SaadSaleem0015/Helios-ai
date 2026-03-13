@@ -31,18 +31,13 @@ const PurchasedNumbers: React.FC = () => {
   const [numbers, setNumbers] = useState<PurchasedNumber[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [assistants, setAssistants] = useState<Assistant[]>([]);
   const [selectedNumber, setSelectedNumber] = useState<PurchasedNumber | null>(null);
-  const [selectedAssistant, setSelectedAssistant] = useState<string | null>(null);
-  const [showAttachModal, setShowAttachModal] = useState(false);
-  const [showDetachModal, setShowDetachModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const itemsPerPage = 9;
 
   useEffect(() => {
     fetchNumbers();
-    fetchAssistants();
   }, []);
 
   const fetchNumbers = async () => {
@@ -54,17 +49,9 @@ const PurchasedNumbers: React.FC = () => {
         ? purchasedResponse.map(num => ({ ...num, number_type: 'purchased' as const }))
         : [];
 
-      // Fetch VV admin numbers
-      const vvResponse = await backendRequest<PurchasedNumber[]>('GET', '/vv-admin-numbers');
-      const vvAdmin = Array.isArray(vvResponse)
-        ? vvResponse.map(num => ({
-            ...num,
-            number_type: 'vv_admin' as const,
-            user: { username: 'VV Admin', email: '' }
-          }))
-        : [];
 
-      setNumbers([...purchased, ...vvAdmin]);
+
+      setNumbers([...purchased]);
     } catch (error) {
       console.error('Error fetching numbers:', error);
     } finally {
@@ -72,14 +59,7 @@ const PurchasedNumbers: React.FC = () => {
     }
   };
 
-  const fetchAssistants = async () => {
-    try {
-      const response = await backendRequest<Assistant[]>('GET', '/get-user-assistants');
-      setAssistants(Array.isArray(response) ? response : []);
-    } catch (error) {
-      console.error('Error fetching assistants:', error);
-    }
-  };
+
 
   const filteredNumbers = numbers.filter(
     num =>
@@ -94,76 +74,6 @@ const PurchasedNumbers: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  const handleAttachClick = (number: PurchasedNumber) => {
-    if (number.number_type === 'vv_admin') return;
-    setSelectedNumber(number);
-    setShowAttachModal(true);
-  };
-
-  const handleAttachSubmit = async () => {
-    if (!selectedNumber || !selectedAssistant) return;
-    
-    setLoading(true);
-    try {
-      const data = {
-        assistant_id: selectedAssistant,
-        phone_number: selectedNumber.phone_number,
-      };
-
-      const endpoint = selectedNumber.number_type === 'vv_admin'
-        ? '/attach-vv-number-to-assistant'
-        : '/attach-number-to-assistant';
-
-      const response = await backendRequest('POST', endpoint, data);
-      notifyResponse(response);
-
-      if (response.success) {
-        setShowAttachModal(false);
-        setSelectedAssistant(null);
-        await fetchNumbers();
-        await fetchAssistants();
-      }
-    } catch (error) {
-      console.error('Error attaching number:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDetachClick = (number: PurchasedNumber) => {
-    if (number.number_type === 'vv_admin') return;
-    setSelectedNumber(number);
-    setShowDetachModal(true);
-  };
-
-  const handleDetachSubmit = async () => {
-    if (!selectedNumber) return;
-    
-    setLoading(true);
-    try {
-      const data = {
-        assistant_id: selectedNumber.attached_assistant,
-        phone_number: selectedNumber.phone_number,
-      };
-
-      const endpoint = selectedNumber.number_type === 'vv_admin'
-        ? '/detach-vv-number-from-assistant'
-        : '/detach-number-from-assistant';
-
-      const response = await backendRequest('POST', endpoint, data);
-      notifyResponse(response);
-
-      if (response.success) {
-        setShowDetachModal(false);
-        await fetchNumbers();
-        await fetchAssistants();
-      }
-    } catch (error) {
-      console.error('Error detaching number:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleDeleteClick = (number: PurchasedNumber) => {
     if (number.number_type === 'vv_admin') return;
@@ -192,10 +102,7 @@ const PurchasedNumbers: React.FC = () => {
     }
   };
 
-  const getAssistantName = (assistantId: number) => {
-    const assistant = assistants.find(a => a.id === assistantId.toString());
-    return assistant?.name || 'Unknown Assistant';
-  };
+
 
   return (
     <div className="p-4 md:p-6">
@@ -380,71 +287,10 @@ const PurchasedNumbers: React.FC = () => {
       )}
 
       {/* Attach Modal */}
-      {showAttachModal && selectedNumber && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Attach Number</h3>
-            <p className="text-gray-600 mb-6">Select an assistant for {selectedNumber.phone_number}</p>
-            
-            <select
-              value={selectedAssistant || ''}
-              onChange={(e) => setSelectedAssistant(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:ring-2 focus:ring-primary focus:border-transparent"
-            >
-              <option value="">Select assistant...</option>
-              {assistants
-                .filter(a => !a.attached_Number)
-                .map(a => (
-                  <option key={a.id} value={a.id}>{a.name}</option>
-                ))}
-            </select>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowAttachModal(false)}
-                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleAttachSubmit}
-                disabled={!selectedAssistant || loading}
-                className="flex-1 py-2.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Attaching...' : 'Attach'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+ 
 
       {/* Detach Modal */}
-      {showDetachModal && selectedNumber && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Detach Number?</h3>
-            <p className="text-gray-600 mb-6">
-              Detach {selectedNumber.phone_number} from {getAssistantName(selectedNumber.attached_assistant)}?
-            </p>
-            
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowDetachModal(false)}
-                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDetachSubmit}
-                disabled={loading}
-                className="flex-1 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
-              >
-                {loading ? 'Detaching...' : 'Detach'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
 
       {/* Delete Modal */}
       {showDeleteModal && selectedNumber && (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { backendRequest } from "../Helpers/backendRequest";
-import { notifyResponse } from "../Helpers/notyf";
 import { Loading } from "../Components/Loading";
 import { TbUpload, TbFileDownload, TbDatabase, TbFileText } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
