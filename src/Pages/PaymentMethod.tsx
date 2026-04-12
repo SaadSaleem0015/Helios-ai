@@ -11,7 +11,6 @@ import { FaCreditCard, FaUser, FaPhone, FaEnvelope, FaLock } from "react-icons/f
 // const stripePromise = loadStripe("pk_test_51L9ED5Hx4scm5E4HAgCLw1qlqZcaE1Az39EE2XI7f4YpIPmNjW9wcRspEmjBYrZ5tWETrwuQuzRR5l1uHKDfSpPb0049HMH9GG");
 
 // live key
-// const stripePromise = loadStripe("pk_live_51QH8drGHzljfWhIHqETtDPTJYXS1uuc9BQRpIGzRHwO50oLl2niqyfmInXFX9fV2Xl5YaSBcVNiIl8bontV48H6900sCaeSsDr");
 const stripePromise = loadStripe("pk_live_51L9ED5Hx4scm5E4HhdfGfHgnL8I4dArCDicjRN8Z0ZiY6zQs2ClZrxT3sa0DeE2TZMCnfcZY08NndxWg4E0WZXfv00sSLefnDa");
 interface FormValues {
   name_on_card: string;
@@ -325,7 +324,7 @@ const PaymentForm = () => {
                       <div className="pt-6 border-t border-gray-200">
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                           <div className="text-sm text-gray-600">
-                            <p>By continuing, you agree to our <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a>.</p>
+                            <p>By continuing, you agree to our <a href="/terms-and-conditions" className="text-primary hover:underline">Terms of Service</a> and <a href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</a>.</p>
                           </div>
                           <button
                             type="submit"

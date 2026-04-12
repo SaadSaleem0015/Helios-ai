@@ -1,9 +1,8 @@
 import { useState, FormEvent } from "react";
 import { Input } from "../Components/Input";
 import { Anchor } from "../Components/Anchor";
-import { useNavigate } from "react-router-dom";
-import TermsAndConditionsModal from "./AdminPages/TermsAndConditions";
-import { FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock, FaArrowRight, FaPhone } from "react-icons/fa";
 import { backendRequest } from "../Helpers/backendRequest";
 import { notifyResponse } from "../Helpers/notyf";
 
@@ -11,11 +10,36 @@ export function Signup() {
     const [loading, setLoading] = useState(false);
     const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [showPassword, setShowPassword] = useState(false);  
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [phoneError, setPhoneError] = useState<string>("");
     const navigate = useNavigate();
     
     // Dynamic year
     const currentYear = new Date().getFullYear();
+
+    function validatePhone(phone: string): boolean {
+        // Remove common separators (spaces, hyphens, parentheses)
+        const cleaned = phone.replace(/[\s\-\(\)]+/g, '');
+        
+        // Check if it's international format (starts with +)
+        if (cleaned.startsWith('+')) {
+            // International format: + followed by 8-15 digits
+            const isValid = /^\+\d{8,15}$/.test(cleaned);
+            if (!isValid) {
+                setPhoneError("International phone number must have + followed by 8-15 digits");
+                return false;
+            }
+        } else {
+            // Local format: 10-15 digits
+            const isValid = /^\d{10,15}$/.test(cleaned);
+            if (!isValid) {
+                setPhoneError("Phone number must contain 10-15 digits");
+                return false;
+            }
+        }
+        
+        setPhoneError("");
+        return true;
+    }
 
     async function login(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -29,23 +53,47 @@ export function Signup() {
         const lastName = formData.get("last_name")?.toString();
         const email = formData.get("email")?.toString();
         const password = formData.get("password")?.toString();
+        const phone = formData.get("phone")?.toString();
 
-        if (firstName && lastName && email && password) {
+        // Validate phone before sending to backend
+        if (phone && !validatePhone(phone)) {
+            setLoading(false);
+            return;
+        }
+
+        if (firstName && lastName && email && password && phone) {
             data.name = `${firstName} ${lastName}`;
             data.email = email;
             data.password = password;
+            data.phone = phone;
         } else {
             console.error("Missing required fields");
+            setLoading(false);
             return;
         }
 
         try {
             const response = await backendRequest("POST", "/signup", data);
             
-            notifyResponse(response);
+            // Check if response has validation errors array
+            if (response && 'detail' in response && Array.isArray(response.detail)) {
+                const validationErrors = response.detail.map((err: any) => {
+                    if (err.loc && err.msg) {
+                        const field = err.loc[err.loc.length - 1];
+                        return `${field}: ${err.msg}`;
+                    }
+                    return err.msg || "Validation error";
+                });
+                // Show the first validation error
+                if (validationErrors.length > 0) {
+                    notifyResponse({ success: false, detail: validationErrors[0] });
+                }
+            } else {
+                notifyResponse(response);
+            }
 
             if (response.success) {
-                localStorage.setItem("signupEmail",data.email);
+                localStorage.setItem("signupEmail", data.email);
                 navigate(`/activate-account?email=${btoa(data.email)!.toString()}`); 
                 form.reset(); 
             }
@@ -55,14 +103,6 @@ export function Signup() {
             setLoading(false);
         }
     }
-
-    const openTermsModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeTermsModal = () => {
-        setIsModalOpen(false);
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-white to-amber-50 flex items-center justify-center p-4">
@@ -81,7 +121,7 @@ export function Signup() {
                 {/* Signup Card */}
                 <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                     <form onSubmit={login} className="space-y-4">
-                        {/* Name Fields - Reduced Gap */}
+                        {/* Name Fields */}
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
                                 <label className="block text-xs font-medium text-gray-700 mb-1">
@@ -141,6 +181,36 @@ export function Signup() {
                             </div>
                         </div>
 
+                        {/* Phone Number Field */}
+                        <div className="space-y-1">
+                            <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Phone Number
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <FaPhone className="h-4 w-4 text-gray-400" />
+                                </div>
+                                <Input
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="+1 (555) 000-9999"
+                                    autoComplete="tel"
+                                    className={`w-full pl-10 pr-3 py-3 text-sm border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 ${
+                                        phoneError ? 'border-red-500' : 'border-gray-300'
+                                    }`}
+                                    onChange={(e) => {
+                                        // Clear error when user types
+                                        if (phoneError) setPhoneError("");
+                                    }}
+                                    onBlur={(e) => validatePhone(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            {phoneError && (
+                                <p className="text-xs text-red-500 mt-1">{phoneError}</p>
+                            )}
+                        </div>
+
                         {/* Password Field */}
                         <div className="space-y-1">
                             <label className="block text-xs font-medium text-gray-700 mb-1">
@@ -168,7 +238,7 @@ export function Signup() {
                             </div>
                         </div>
 
-                        {/* Terms and Conditions - Compact */}
+                        {/* Terms and Conditions */}
                         <div className="flex items-start space-x-2 p-3 bg-gray-50 rounded-xl">
                             <div className="flex items-center h-4">
                                 <input
@@ -181,25 +251,29 @@ export function Signup() {
                                 />
                             </div>
                             <label htmlFor="terms" className="text-xs text-gray-600 leading-tight">
-                                I agree to the{' '}
-                                <button
-                                    type="button"
-                                    onClick={openTermsModal}
+                                I agree to the{" "}
+                                <Link
+                                    to="/terms-and-conditions"
                                     className="text-primary hover:text-primary-dark font-medium hover:underline"
                                 >
                                     Terms & Conditions
-                                </button>
-                                {' '}and{' '}
-                                <span className="text-primary font-medium">Privacy Policy</span>
+                                </Link>
+                                {" "}and{" "}
+                                <Link
+                                    to="/privacy-policy"
+                                    className="text-primary hover:text-primary-dark font-medium hover:underline"
+                                >
+                                    Privacy Policy
+                                </Link>
                             </label>
                         </div>
 
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            disabled={loading || !agreedToTerms}
+                            disabled={loading || !agreedToTerms || !!phoneError}
                             className={`w-full py-3 px-4 bg-primary text-white rounded-xl font-medium text-sm transition-all duration-200 hover:bg-primary-dark ${
-                                loading || !agreedToTerms 
+                                loading || !agreedToTerms || phoneError
                                     ? 'opacity-50 cursor-not-allowed' 
                                     : 'hover:shadow-md'
                             }`}
@@ -232,15 +306,27 @@ export function Signup() {
                     </div>
                 </div>
 
-                {/* Footer */}
-                <div className="text-center mt-4">
-                    <p className="text-xs text-gray-500">
-                        © {currentYear} The Helios AI. All rights reserved.
-                    </p>
+                {/* Footer Links */}
+                <div className="text-center mt-4 space-x-4">
+                    <Link 
+                        to="/terms-and-conditions" 
+                        className="text-xs text-gray-500 hover:text-primary transition-colors"
+                    >
+                        Terms
+                    </Link>
+                    <span className="text-xs text-gray-300">•</span>
+                    <Link 
+                        to="/privacy-policy" 
+                        className="text-xs text-gray-500 hover:text-primary transition-colors"
+                    >
+                        Privacy
+                    </Link>
+                    <span className="text-xs text-gray-300">•</span>
+                    <span className="text-xs text-gray-500">
+                        © {currentYear}
+                    </span>
                 </div>
             </div>
-
-            <TermsAndConditionsModal isOpen={isModalOpen} onClose={closeTermsModal} />
         </div>
     );
 }

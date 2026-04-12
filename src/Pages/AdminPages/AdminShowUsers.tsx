@@ -16,6 +16,7 @@ interface User {
   updated_at: string;
   name: string;
   email: string;
+  phone:string;
   role: string;
   is_active: boolean;
 }

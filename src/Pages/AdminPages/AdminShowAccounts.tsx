@@ -6,7 +6,7 @@ import { FiDollarSign, FiLogIn } from "react-icons/fi";
 import { notifyResponse } from "../../Helpers/notyf";
 import ConfirmationModal from "../../Components/ConfirmationModal";
 import { Loading } from "../../Components/Loading";
-import { TbUser, TbMail, TbCoin, TbPower } from "react-icons/tb";
+import { TbUser, TbMail, TbCoin, TbPower, TbPhone } from "react-icons/tb";
 
 // Update the User interface to match your API response
 interface User {
@@ -15,6 +15,7 @@ interface User {
   email: string;
   balance: number;
   is_active: boolean;
+  phone: string;
   // Remove email_confirmed as it's not in the response
 }
 
@@ -246,6 +247,13 @@ export const AdminShowAccounts = () => {
                         Email
                       </div>
                     </th>
+
+                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <div className="flex items-center gap-2">
+                        <TbPhone className="w-4 h-4" />
+                        Phone
+                      </div>
+                    </th>
                     <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <div className="flex items-center gap-2">
                         <TbCoin className="w-4 h-4" />
@@ -285,6 +293,9 @@ export const AdminShowAccounts = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="text-sm text-gray-600">{account.email}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm text-gray-600">{account.phone}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center text-sm font-medium text-gray-900">

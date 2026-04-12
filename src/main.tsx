@@ -87,6 +87,12 @@ import AdminGeneralSettings from "./Pages/AdminPages/AdminGeneralSettings";
 import { AdminPhoneNumbers } from "./Pages/AdminPages/AdminPhoneNumbers";
 import { ZohoLeads } from "./Pages/ZohoLeads";
 import { HubSpotLeads } from "./Pages/HubSpotLeads";
+import SheetsCallback from "./Pages/SheetsCallback";
+import IntegrationsPage from "./Pages/IntegrationsPage";
+import { GoogleSheetsIntegration } from "./Components/GoogleSheetsIntegration";
+import { PrivacyPolicyPage } from "./Pages/PrivacyPolicyPage";
+import { TermsAndConditionsPage } from "./Pages/TermsAndConditionsPage";
+import { TermsAndConditions } from "./Components/TermsAndConditions";
 const router = createBrowserRouter([
   // {
   //   path: "/",
@@ -126,6 +132,22 @@ const router = createBrowserRouter([
       <LoginChecker allowedUser="not-logged-in">
         <ErrorBoundary><Signup /></ErrorBoundary>
       </LoginChecker>
+    ),
+  },
+  {
+    path: "/privacy-policy",
+    element: (
+      <ErrorBoundary>
+        <PrivacyPolicyPage />
+      </ErrorBoundary>
+    ),
+  },
+  {
+    path: "/terms-and-conditions",
+    element: (
+      <ErrorBoundary>
+        <TermsAndConditions />
+      </ErrorBoundary>
     ),
   },
   {
@@ -336,9 +358,18 @@ const router = createBrowserRouter([
         element: <ErrorBoundary><BusinessSchedule /></ErrorBoundary>,
       },
       {
-        path: "calendar-integration",
+        path: "integrations/calendar",
         element: <ErrorBoundary><CalendarIntegration /></ErrorBoundary>,
       },
+        {
+        path: "integrations/sheets",
+        element: <ErrorBoundary><GoogleSheetsIntegration /></ErrorBoundary>,
+      },
+      {
+        path: "settings/integrations",
+        element: <ErrorBoundary><IntegrationsPage /></ErrorBoundary>,
+      },
+      
       {
         path: "support",
         element: <ErrorBoundary><Support /></ErrorBoundary>,
@@ -362,6 +393,10 @@ const router = createBrowserRouter([
       {
         path: "make-payment",
         element: <ErrorBoundary><MakePayment /></ErrorBoundary>,
+      },
+      {
+        path: "sheets/callback",
+        element: <ErrorBoundary><SheetsCallback /></ErrorBoundary>,
       },
       {
         path: "/success",

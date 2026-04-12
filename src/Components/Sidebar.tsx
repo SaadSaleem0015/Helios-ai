@@ -23,6 +23,7 @@ import {
 } from "react-icons/md";
 import { LuFileBadge } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { BiSupport } from "react-icons/bi";
 
 // Interface for menu items
 interface MenuItem {
@@ -183,7 +184,7 @@ export function Sidebar({
         { title: "Phone Numbers", path: "/getnumbers", icon: <MdCall /> },
         { title: "Knowledge Base", path: "/documents", icon: <FaFileAlt /> },
         { title: "Schedule", path: "/business-schedule", icon: <TbCalendar /> },
-        { title: "Calendar Integration", path: "/calendar-integration", icon: <TbCalendarEvent /> },
+        { title: "Integrations", path: "/settings/integrations", icon: <TbCalendarEvent /> },
       ],
     },
     leads: {
@@ -217,6 +218,11 @@ export function Sidebar({
         { title: "Make Payment", path: "/make-payment", icon: <MdPayments /> },
         // { title: "Cancel Subscription", path: "/cancel-subscription", icon: <MdCancel /> },
       ],
+    },
+    Support: {
+      title: "Support",
+      path: "/support",
+      icon: <BiSupport />,
     },
   };
 
@@ -461,6 +467,13 @@ export function Sidebar({
               ))
             ) : null}
           </SidebarSection>
+          <SidebarItem 
+    to={menuItems.Support.path} 
+    icon={menuItems.Support.icon}
+    isCollapsed={sidebarCollapsed}
+  >
+    {menuItems.Support.title}
+  </SidebarItem>
         </div>
       </div>
     </>

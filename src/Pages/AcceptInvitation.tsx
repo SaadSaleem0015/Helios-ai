@@ -233,7 +233,7 @@ console.log("signupForm",signupForm)
                 />
                 <label htmlFor="terms" className="text-sm text-gray-600">
                   I agree to the{' '}
-                  <a href="/termsandconditions" className="text-primary hover:underline">
+                  <a href="/terms-and-conditions" className="text-primary hover:underline">
                     Terms & Conditions
                   </a>
                 </label>

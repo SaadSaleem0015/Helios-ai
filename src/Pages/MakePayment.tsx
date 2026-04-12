@@ -211,15 +211,14 @@ const MakePayment = () => {
         "/make-payment",
         newPayment
       );
-      
-      if (response.success) {
-        localStorage.removeItem("trialMessage");
-        notifyResponse({
-          success: true,
-          detail: `Payment of $${amount} was successful!`,
-        });
+      notifyResponse({
+        success: response.success,
+        detail: response.detail,
+      });
+      if(response.success){
         navigate("/bl-report");
       }
+  
     } catch (error) {
       console.error("Failed to make payment:", error);
       notifyResponse({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ConfirmationModalProps {
   show: boolean;
@@ -7,23 +7,53 @@ interface ConfirmationModalProps {
   message: string;
 }
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ show, onClose, onConfirm, message }) => {
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  show,
+  onClose,
+  onConfirm,
+  message,
+}) => {
   if (!show) return null;
 
+  const handleBackdropClick = () => {
+    onClose();
+  };
+
+  const handleContentClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800/60 backdrop-blur-xs z-50 px-8 ">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-lg font-bold mb-4">Confirm Action</h2>
-        <p className="mb-4">{message}</p>
-        <div className="flex justify-end space-x-4">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-gray-800/60 backdrop-blur-xs z-50 px-4 sm:px-8"
+      onClick={handleBackdropClick}
+    >
+      <div
+        className="bg-white p-5 sm:p-6 rounded-lg shadow-lg max-w-md w-full"
+        onClick={handleContentClick}
+      >
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base sm:text-lg font-bold">Confirm Action</h2>
           <button
-            className="bg-gray-300 text-sm sm:text-base text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+            type="button"
+            className="text-gray-400 hover:text-gray-600"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </div>
+        <p className="mb-4 text-sm text-gray-700">{message}</p>
+        <div className="flex justify-end space-x-3">
+          <button
+            type="button"
+            className="bg-gray-200 text-xs sm:text-sm text-gray-800 py-2 px-4 rounded hover:bg-gray-300"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="bg-primary text-sm sm:text-base text-white py-1.5 sm:py-2 px-3 sm:px-4 rounded hover:bg-hoverdPrimary"
+            type="button"
+            className="bg-primary text-xs sm:text-sm text-white py-2 px-4 rounded hover:bg-hoverdPrimary"
             onClick={onConfirm}
           >
             Confirm
@@ -35,3 +65,4 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ show, onClose, on
 };
 
 export default ConfirmationModal;
+
